@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* ==========================================================================
+  Text
+   ========================================================================== */
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-xxs {
+    font-size: 0.625rem /* 10px */;
+    line-height: 0.938rem /* 15px */;
+  }
+
+  .text-2-1xl {
+    font-size: 1.75rem /* 28px */;
+    line-height: 2.5rem /* 40px */;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
