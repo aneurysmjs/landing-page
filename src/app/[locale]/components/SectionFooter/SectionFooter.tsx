@@ -49,22 +49,21 @@ const SectionFooter = () => {
   return (
     <footer
       className={`
-        w-full bg-[#E8EFE9] px-6 py-8 text-[#0B3B3C]
+        mt-12 w-full bg-[#E8EFE9] px-6 py-8 text-[#0B3B3C]
 
-        md:px-12
+        md:px-28
       `}
     >
       <div
         className={`
           mx-auto grid grid-cols-2 gap-6
 
-          md:grid-cols-[2fr_1fr_1fr_1fr_1fr]
+          md:max-w-[1440px] md:grid-cols-[2fr_1fr_1fr_1fr_1fr]
         `}
       >
-        {/* Logo */}
         <div
           className={`
-            col-span-full flex items-center
+            col-span-full flex items-start
 
             md:col-span-1
           `}
@@ -82,8 +81,8 @@ const SectionFooter = () => {
 
         {footerData.map((data) => (
           <nav className="w-full" key={data.id}>
-            <h3 className="mb-2 text-xxs font-tt-norms-bold uppercase">{data.title}</h3>
-            <ul className="space-y-1">
+            <h3 className="mb-5 text-xxs font-tt-norms-bold uppercase">{data.title}</h3>
+            <ul className="space-y-5">
               {data.links.map((link) => (
                 <li key={link.id}>
                   <a className="hover:underline" href={link.href}>
@@ -96,7 +95,7 @@ const SectionFooter = () => {
         ))}
 
         <nav className="w-full">
-          <h3 className="mb-2 text-xxs font-tt-norms-bold uppercase">Follow Us</h3>
+          <h3 className="mb-5 text-xxs font-tt-norms-bold uppercase">Follow Us</h3>
           <ul className="flex items-center space-x-3">
             <li>
               <a aria-label="Facebook" href="#">
@@ -135,12 +134,13 @@ const SectionFooter = () => {
       {/* Footer Bottom */}
       <div
         className={`
-          mt-6 flex flex-col items-center justify-between border-t pt-4 text-sm
+          mx-auto mt-12 flex flex-col items-center justify-center border-t
+          border-t-[#BDCDC5] pt-6 text-sm
 
-          md:flex-row
+          md:max-w-[1440px] md:flex-row
         `}
       >
-        <p>&copy; {year} Manual. All rights reserved</p>
+        <p className="text-[#6D8A83]">&copy; {year} Manual. All rights reserved</p>
       </div>
     </footer>
   );

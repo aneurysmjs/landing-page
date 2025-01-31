@@ -14,6 +14,7 @@ interface SectionNumberProps extends PropsWithChildren<HTMLAttributes<HTMLDivEle
 
 const SectionNumber: FC<SectionNumberProps> = ({
   children,
+  className,
   direction = 'left',
   sectionNumber,
   ...props
@@ -21,7 +22,7 @@ const SectionNumber: FC<SectionNumberProps> = ({
   const directionClass = direction === 'left' ? leftClasses : rightClasses;
 
   return (
-    <div {...props} className={cn(`relative`, props.className)} section-number={sectionNumber}>
+    <div className={cn(`relative`, className)} {...props}>
       <div
         className={cn(
           `

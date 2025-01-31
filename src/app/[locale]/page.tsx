@@ -2,21 +2,27 @@ import type { FC } from 'react';
 
 import Image from 'next/image';
 
-import SectionFooter from '@/components/SectionFooter';
-import SectionHeader from '@/components/SectionHeader';
-import SectionInfo from '@/components/SectionInfo';
-import SectionLayout from '@/components/SectionLayout';
-import SectionNumber from '@/components/SectionNumber';
+import SectionFooter from '@/app/[locale]/components/SectionFooter';
+import SectionHeader from '@/app/[locale]/components/SectionHeader';
+import SectionInfo from '@/app/[locale]/components/SectionInfo';
+import SectionLayout from '@/app/[locale]/components/SectionLayout';
+import SectionNumber from '@/app/[locale]/components/SectionNumber';
 
 const Home: FC = () => {
   return (
     <div className={`flex flex-col items-center justify-center font-tt-norms`}>
       <SectionHeader />
 
-      <main className="bg-white py-8">
+      <main
+        className={`
+          w-full bg-white
+
+          md:max-w-[1440px]
+        `}
+      >
         <h3
           className={`
-            mb-12 text-center text-[40px]/[60px] line font-semibold
+            my-16 text-center text-[40px]/[60px] line font-semibold
             text-[#0B3B3C]
           `}
         >
@@ -25,7 +31,7 @@ const Home: FC = () => {
 
         <SectionLayout
           className={`
-            flex-col-reverse
+            mb-24 flex-col-reverse px-24
 
             md:flex-row
           `}
@@ -57,7 +63,7 @@ const Home: FC = () => {
             title="Hair loss"
           />
         </SectionLayout>
-        <SectionLayout>
+        <SectionLayout className="px-24">
           <SectionInfo
             className={`
               relative z-10

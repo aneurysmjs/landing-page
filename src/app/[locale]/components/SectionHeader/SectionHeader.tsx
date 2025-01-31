@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Quiz from '@/app/[locale]/components/Quiz';
+
 const SectionHeader = () => {
   return (
     <header
       className={`
         relative h-96 w-full
 
-        md:h-[700px]
+        md:h-[700px] md:max-w-[1440px]
       `}
     >
       <Link
@@ -46,16 +48,16 @@ const SectionHeader = () => {
       <div
         className={`
           absolute inset-0 left-0 flex w-full flex-col items-start
-          justify-center px-8 text-white
+          justify-center text-white
         `}
       >
         <article
           className={`
-            ml-0 w-full
+            ml-0 w-full px-8
 
             lg:w-[430px]
 
-            md:ml-32 md:w-[340px]
+            md:ml-32 md:w-[340px] md:px-0
           `}
         >
           <h2
@@ -73,15 +75,8 @@ const SectionHeader = () => {
             We’re working around the clock to bring you a holistic approach to your wellness. From
             top to bottom, inside and out.
           </p>
-          <button
-            aria-label="open quiz"
-            className={`
-              mt-6 bg-[#7E0707] px-6 py-2 text-[10px]/[15px] uppercase
-            `}
-            type="button"
-          >
-            Take the Quiz
-          </button>
+
+          <Quiz />
         </article>
       </div>
     </header>

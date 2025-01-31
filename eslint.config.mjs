@@ -79,7 +79,7 @@ export default tsEslint.config(
     ...tsEslint.configs.disableTypeChecked,
   },
   {
-    files: ['**/*.tsx'],
+    files: ['**/*.tsx', '**/*.ts'],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
