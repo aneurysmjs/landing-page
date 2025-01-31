@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
-interface SectionInfoProps {
+interface SectionInfoProps extends HTMLAttributes<HTMLElement> {
   content: string;
   subtitle: string;
   title: string;
 }
 
-const SectionInfo: FC<SectionInfoProps> = ({ content, subtitle, title }) => {
+const SectionInfo: FC<SectionInfoProps> = ({ content, subtitle, title, ...props }) => {
   return (
-    <article>
+    <article {...props}>
       <h6 className="text-xxs font-semibold uppercase text-[#6D8A83]">{title}</h6>
       <h4
         // eslint-disable-next-line readable-tailwind/multiline
