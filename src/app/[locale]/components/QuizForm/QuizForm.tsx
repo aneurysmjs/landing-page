@@ -5,35 +5,25 @@ import type { FC } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 
+import type { Question, QuizData } from '@/app/[locale]/models';
+
+import useGetQuizData from '@/app/[locale]/hooks/useGetQuizData';
 import useQuiz from '@/app/[locale]/hooks/useQuiz';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 
-interface Option {
-  display: string;
-  isRejection: boolean;
-  value: boolean | string;
-}
-
-interface Question {
-  options: Option[];
-  question: string;
-  type: string;
-}
-
-interface QuizData {
-  questions: Question[];
-}
-
+const questionnaireId = '972423';
 interface QuizProps {
   data: QuizData;
 }
 
-const Quiz: FC<QuizProps> = ({ data }) => {
+const Quiz: FC<QuizProps> = ({ data: other }) => {
+  const { data, isLoading } = useGetQuizData(questionnaireId);
+
   const { answers, currentStep, handleAnswer, handleBack, isLastStep, isRejected, progress } =
-    useQuiz(data);
+    useQuiz(data ?? { questions: [] });
 
   const renderQuestion = (question: Question, index: number) => {
     const selectedAnswer = answers[index];
@@ -78,7 +68,9 @@ const Quiz: FC<QuizProps> = ({ data }) => {
                       src={src || '/placeholder.svg'}
                     />
                   </div>
-                  <p className="mt-2 text-center font-medium">{option.value.toString()}</p>
+                  <p className="mt-2 text-center font-medium text-[#0B3B3C]">
+                    {option.value.toString()}
+                  </p>
                 </Card>
               );
             }
@@ -126,8 +118,15 @@ const Quiz: FC<QuizProps> = ({ data }) => {
       <div className="space-y-6 text-center">
         <h2 className="text-2xl font-bold text-[#0B3B3C] text-foreground">Great News!</h2>
         <p className="text-muted-foreground text-[#0B3B3C]">
-          We have the perfect treatment for your hair loss. Proceed to www.manual.co, and prepare to
-          say hello to your new hair!
+          We have the perfect treatment for your hair loss. Proceed to
+          <a
+            aria-label="Read more about the perfect treatment for your hair loss."
+            href="https://www.manual.co"
+            target="_blank"
+          >
+            www.manual.co
+          </a>
+          , and prepare to say hello to your new hair!
         </p>
       </div>
     );
@@ -138,25 +137,29 @@ const Quiz: FC<QuizProps> = ({ data }) => {
       <div className="mx-auto max-w-4xl p-6">
         <div className="mb-8 flex items-center justify-between">
           {currentStep > 0 && (
-            <Button
-              aria-label="back button"
-              disabled={isRejected}
-              onClick={handleBack}
-              size="icon"
-              variant="ghost"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
+            <>
+              <Button
+                aria-label="back button"
+                disabled={isRejected}
+                onClick={handleBack}
+                size="icon"
+                variant="ghost"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <Progress
+                aria-valuenow={progress}
+                className="ml-auto w-[200px]"
+                role="progressbar"
+                value={progress}
+              />
+            </>
           )}
-          <Progress
-            aria-valuenow={progress}
-            className="ml-auto w-[200px]"
-            role="progressbar"
-            value={progress}
-          />
         </div>
         <div className="rounded-lg border bg-card p-6 shadow-sm">
-          {!isLastStep ? renderQuestion(data.questions[currentStep], currentStep) : renderResults()}
+          {!isLastStep && !isLoading
+            ? renderQuestion(other.questions[currentStep], currentStep)
+            : renderResults()}
         </div>
       </div>
     </div>

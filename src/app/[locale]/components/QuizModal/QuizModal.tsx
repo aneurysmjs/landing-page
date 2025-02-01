@@ -93,7 +93,13 @@ interface QuizModalProps {
 
 const QuizModal: FC<QuizModalProps> = ({ isOpen, onClose }) => {
   return (
-    <ModalBase className="bg-white" heading="Take Quiz" isOpen={isOpen} onClose={onClose}>
+    <ModalBase
+      className="border-[#BDCDC5] bg-white"
+      description="complete to see if Manual is good for you."
+      heading="Take Quiz"
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <QuizForm data={data} />
     </ModalBase>
   );

@@ -2,21 +2,9 @@
 
 import { type FC, lazy, Suspense, useState } from 'react';
 
-const QuizModal = lazy(() => import('@/app/[locale]/components/QuizModal'));
+import Loader from '@/components/share/Loader';
 
-const Loader = () => {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <div
-        className={`
-          h-12 w-12 animate-spin rounded-full border-4 border-gray-500
-          border-t-transparent
-        `}
-      />
-      <p className="mt-4 text-gray-500">Loading...</p>
-    </div>
-  );
-};
+const QuizModal = lazy(() => import('@/app/[locale]/components/QuizModal'));
 
 const Quiz: FC = () => {
   const [isQuizModalOpen, setIzQuizModalOpen] = useState(false);
@@ -41,7 +29,16 @@ const Quiz: FC = () => {
       </button>
 
       {isQuizModalOpen && (
-        <Suspense fallback={<Loader />}>
+        <Suspense
+          fallback={
+            <Loader
+              // eslint-disable-next-line readable-tailwind/multiline
+              className={`
+                absolute left-1/2 -translate-x-1/2 transform
+              `}
+            />
+          }
+        >
           <QuizModal isOpen={isQuizModalOpen} onClose={handleCloseQuizModal} />
         </Suspense>
       )}

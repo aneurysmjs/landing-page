@@ -7,6 +7,7 @@ import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 
 import { type Locale, routing } from '@/i18n/routing';
+import QueryProvider from '@/providers/QueryProvider';
 
 import '../../assets/css/styles.css';
 
@@ -61,7 +62,9 @@ const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
         `}
       >
         <h1 className="sr-only">Manual - Men’s health. The way it should be</h1>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <QueryProvider>{children}</QueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -33,9 +33,7 @@ const ModalBase: FC<ModalBaseProps> = ({
       <DialogContent className={cn(`border-transparent`, className)}>
         <DialogHeader>
           <DialogTitle className="font-semibold uppercase text-[#0B3B3C]">{heading}</DialogTitle>
-          {description && (
-            <DialogDescription className="text-white">{description}</DialogDescription>
-          )}
+          {description && <DialogDescription className="text-red">{description}</DialogDescription>}
         </DialogHeader>
         {children}
         {Footer && <DialogFooter>{Footer}</DialogFooter>}

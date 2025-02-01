@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { fireEvent, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import Quiz from '../QuizForm';
+import renderWithQueryClient from '@/utils/testing/renderWithQueryClient';
+
+import QuizForm from './QuizForm';
 
 const mockQuizData = {
   questions: [
@@ -61,9 +63,21 @@ const mockQuizData = {
   ],
 };
 
+const { mockUseGetQuizData } = vi.hoisted(() => ({
+  mockUseGetQuizData: vi.fn(() => ({
+    data: mockQuizData,
+    isError: false,
+    isLoading: false,
+  })),
+}));
+
+vi.mock('@/app/[locale]/hooks/useGetQuizData', () => ({
+  default: mockUseGetQuizData,
+}));
+
 describe('Quiz Component', () => {
   beforeEach(() => {
-    render(<Quiz data={mockQuizData} />);
+    renderWithQueryClient(<QuizForm data={mockQuizData} />);
   });
 
   describe('Initial Render', () => {
@@ -71,10 +85,10 @@ describe('Quiz Component', () => {
       expect(screen.getByText('Which image best matches your hair loss?')).toBeInTheDocument();
     });
 
-    it('should show the progress bar starting at 0%', () => {
-      const progressBar = screen.getByRole('progressbar');
+    it('should have a hidden progress bar initially', () => {
+      const progressBar = screen.queryByRole('progressbar');
 
-      expect(progressBar).toHaveAttribute('aria-valuenow', '0');
+      expect(progressBar).not.toBeInTheDocument();
     });
 
     it('should have a hidden back button initially', () => {
